@@ -42,7 +42,6 @@ public class PlayerState
         player.animator.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = true; // When animation sprites are done set this to false;
-        Debug.Log(GetType());
     }
 
     public virtual void Exit()
