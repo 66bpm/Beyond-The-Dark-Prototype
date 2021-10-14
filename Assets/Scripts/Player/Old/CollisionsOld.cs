@@ -28,7 +28,7 @@ using UnityEngine;
 ⣿⣿⣿⣿⣿⣷⢄⠈⠻⣆⠀⠀⠀⠑⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣾⣿⣿⣿
  */
 
-public class Collisions : MonoBehaviour
+public class CollisionsOld : MonoBehaviour
 {
 
     // Booleans

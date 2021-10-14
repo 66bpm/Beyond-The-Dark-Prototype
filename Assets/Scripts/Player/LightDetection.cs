@@ -21,7 +21,7 @@ using UnityEngine;
 
 public class LightDetection : MonoBehaviour
 {
-    [SerializeField] private PlayerState ps;
+    [SerializeField] private Player player;
 
     [Header("Light Detection Variables")]
     [SerializeField] private Camera lightDetectionCamera;
@@ -62,7 +62,7 @@ public class LightDetection : MonoBehaviour
             RenderTexture.active = tempRT;
             lightT.ReadPixels(lightRect, 0, 0);
             lightPixel = lightT.GetPixel(0, 0);
-            ps.lightExposure = (lightPixel.r + lightPixel.g + lightPixel.b) / 3f;
+            player.lightExposure = (lightPixel.r + lightPixel.g + lightPixel.b) / 3f;
             lightDetectionCamera.targetTexture = null;
             RenderTexture.active = null;
             yield return new WaitForSeconds(waitTime);

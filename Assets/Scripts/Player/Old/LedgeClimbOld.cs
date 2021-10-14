@@ -18,11 +18,11 @@ using UnityEngine;
 ⣦⠘⣿⣄⠊⠛⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⣼⣿⣿⣿⡿⠁⠄⠟
  */
 
-public class LedgeClimb : MonoBehaviour
+public class LedgeClimbOld : MonoBehaviour
 {
-    private PlayerState ps;
-    private PlayerController pc;
-    private Collisions coll;
+    private PlayerStateOld ps;
+    private PlayerControllerOld pc;
+    private CollisionsOld coll;
     private Rigidbody2D rb;
     private Coroutine climbingLedge;
 
@@ -38,9 +38,9 @@ public class LedgeClimb : MonoBehaviour
 
     private void Awake()
     {
-        ps = GetComponent<PlayerState>();
-        pc = GetComponent<PlayerController>();
-        coll = GetComponent<Collisions>();
+        ps = GetComponent<PlayerStateOld>();
+        pc = GetComponent<PlayerControllerOld>();
+        coll = GetComponent<CollisionsOld>();
         rb = GetComponent<Rigidbody2D>();
     }
 

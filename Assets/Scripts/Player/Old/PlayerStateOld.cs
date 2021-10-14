@@ -61,12 +61,12 @@ oosssssssssssssssssssssoosssssoooooooosshhdmmNNNNNNNNNNNNNmmmddhysssssssssssssss
 ██   ██ ███████ ██      ██ ██████  ███████ ██   ██     ██   ██ ██   ██ ██      ██         ██        ██████  ██   ██    ██    
  */
 
-public class PlayerState : MonoBehaviour
+public class PlayerStateOld : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Collisions coll;
-    private PlayerController pc;
-    private Jump jump;
+    private CollisionsOld coll;
+    private PlayerControllerOld pc;
+    private JumpOld jump;
 
     // Values
     public float lightExposure = 0f;
@@ -99,8 +99,8 @@ public class PlayerState : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collisions>();
-        pc = GetComponent<PlayerController>();
-        jump = GetComponent<Jump>();
+        coll = GetComponent<CollisionsOld>();
+        pc = GetComponent<PlayerControllerOld>();
+        jump = GetComponent<JumpOld>();
     }
 }

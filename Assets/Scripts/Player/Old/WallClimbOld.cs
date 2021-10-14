@@ -15,22 +15,22 @@ using UnityEngine;
 ⣿⣿⣿⣽⣿⣼⣛⠿⠿⣿⣿⣿⣿⣿⣯⣿⠿⢟⣻⡽⢚⣤⡞⠄⠄⠄⢸⣿
  */
 
-public class WallClimb : MonoBehaviour
+public class WallClimbOld : MonoBehaviour
 {
-    private Movement mm;
-    private PlayerController pc;
-    private PlayerState ps;
-    private Collisions coll;
+    private MovementOld mm;
+    private PlayerControllerOld pc;
+    private PlayerStateOld ps;
+    private CollisionsOld coll;
     private Rigidbody2D rb;
 
     [Header("Wall Climb Variables")]
     [SerializeField] private float wallClimbModifier = 0.85f;
     private void Awake()
     {
-        mm = GetComponent<Movement>();
-        pc = GetComponent<PlayerController>();
-        ps = GetComponent<PlayerState>();
-        coll = GetComponent<Collisions>();
+        mm = GetComponent<MovementOld>();
+        pc = GetComponent<PlayerControllerOld>();
+        ps = GetComponent<PlayerStateOld>();
+        coll = GetComponent<CollisionsOld>();
         rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()

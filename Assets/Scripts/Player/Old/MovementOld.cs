@@ -9,11 +9,11 @@ using UnityEngine;
  \__/ (___/    \___)|__|  \___)     \_______)(___/    \___)(_______/       \__|        |___|\__/|___|  \"_____/      \__/     \_______)|___|\__/|___| \_______) \___|\____\)    \__| 
 */
 
-public class Movement : MonoBehaviour
+public class MovementOld : MonoBehaviour
 {
-    private PlayerController pc;
-    private PlayerState ps;
-    private Collisions coll;
+    private PlayerControllerOld pc;
+    private PlayerStateOld ps;
+    private CollisionsOld coll;
     private Rigidbody2D rb;
 
     [Header("Movement Variables")]
@@ -23,9 +23,9 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        pc = GetComponent<PlayerController>();
-        ps = GetComponent<PlayerState>();
-        coll = GetComponent<Collisions>();
+        pc = GetComponent<PlayerControllerOld>();
+        ps = GetComponent<PlayerStateOld>();
+        coll = GetComponent<CollisionsOld>();
         rb = GetComponent<Rigidbody2D>();
     }
 

@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8868675df9dc641872a2a4191b2c7b, type: 3}
+  m_Name: playerData
+  m_EditorClassIdentifier: 
+  movementAcceleration: 70
+  maxMovementSpeed: 12
+  sneakMaxMovementSpeed: 4
+  groundLinearDrag: 20
+  airLinearDrag: 2.5
+  defaultMultiplier: 3
+  fallMultiplier: 10
+  lowFallMultiplier: 7
+  jumpForce: 30
+  hangTime: 0.1
+  extreJumpAmount: 1
+  wallJumpMovementLockDuration: 0.1
+  wallCorrectionDistance: 0.05
+  oneWayPlatformResetTime: 0.5
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  onewayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  allLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  characterDimension: {x: 1, y: 2}
+  groundRaycastSize: {x: 0.9, y: 0.6}
+  groundRaycastYOffset: 0.8
+  topRaycastLength: 1.4
+  edgeRaycastOffset: {x: 0.5, y: 0, z: 0}
+  innerRaycastOffset: {x: 0.25, y: 0, z: 0}
+  ceilingRaycastLength: 1.2
+  wallRaycastSize: {x: 0.2, y: 1.6}
+  wallClimbRaycastYOffset: 0.2
+  wallMinimumAngle: 80
+  ledgeRaycastYOffset: 1.4
+  wallLedgeRaycastYOffset: 0.5
+  wallLedgeRaycastSize: {x: 0.2, y: 0.6}
+  ledgeRaycastLength: 0.7

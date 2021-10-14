@@ -17,11 +17,11 @@ using UnityEngine;
 ▒▒▒▀▀▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
 */
 
-public class Jump : MonoBehaviour
+public class JumpOld : MonoBehaviour
 {
-    private PlayerState ps;
-    private PlayerController pc;
-    private Collisions coll;
+    private PlayerStateOld ps;
+    private PlayerControllerOld pc;
+    private CollisionsOld coll;
     private DragManager dm;
     private Rigidbody2D rb;
 
@@ -48,9 +48,9 @@ public class Jump : MonoBehaviour
 
     private void Awake()
     {
-        ps = GetComponent<PlayerState>();
-        pc = GetComponent<PlayerController>();
-        coll = GetComponent<Collisions>();
+        ps = GetComponent<PlayerStateOld>();
+        pc = GetComponent<PlayerControllerOld>();
+        coll = GetComponent<CollisionsOld>();
         dm = GetComponent<DragManager>();
         rb = GetComponent<Rigidbody2D>();
     }

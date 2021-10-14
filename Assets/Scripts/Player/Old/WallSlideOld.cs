@@ -38,21 +38,21 @@ yyyymdyyyhyymdyyyyyysNdyysssssyyyyysssyyyssssssyyyo-:/oyyhhyyyyhmNNNNNNNs`......
 yyyymhyysNsyhNyyyyyyyymNdyyyyssssssyyyysssyyyssoso-.....:/oyyyyyyhmNNNNNN:`....```..--::::::::::::::
  */
 
-public class WallSlide : MonoBehaviour
+public class WallSlideOld : MonoBehaviour
 {
-    private Movement mm;
-    private PlayerState ps;
+    private MovementOld mm;
+    private PlayerStateOld ps;
     private Rigidbody2D rb;
-    private Collisions coll;
+    private CollisionsOld coll;
 
     [Header("Wall Slide Variables")]
     [SerializeField] private float wallSlideModifier = 0.5f;
 
     private void Awake()
     {
-        mm = GetComponent<Movement>();
-        ps = GetComponent<PlayerState>();
-        coll = GetComponent<Collisions>();
+        mm = GetComponent<MovementOld>();
+        ps = GetComponent<PlayerStateOld>();
+        coll = GetComponent<CollisionsOld>();
         rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()

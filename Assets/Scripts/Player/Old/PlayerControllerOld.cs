@@ -23,9 +23,9 @@ using UnityEngine;
 ⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣
  */
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerOld : MonoBehaviour
 {
-    private PlayerState ps;
+    private PlayerStateOld ps;
 
     [Space]
     [Header("Public Variables")]
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
-        ps = GetComponent<PlayerState>();
+        ps = GetComponent<PlayerStateOld>();
     }
     private void Update()
     {

@@ -56,24 +56,19 @@ dddddddhddhyMMMMMNmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmddmmmmmmmmmmmmmmmmmmmmmmmmd
 
 public class DragManager : MonoBehaviour
 {
-    private PlayerState ps;
-    private PlayerController pc;
-    private Collisions coll;
-    private Rigidbody2D rb;
-
-    [SerializeField] private float groundLinearDrag = 10f;
-    [SerializeField] private float airLinearDrag = 2.5f;
-
-    private void Awake()
+    private Player player;
+    private bool isChangingDirection;
+    private void Start()
     {
-        ps = GetComponent<PlayerState>();
-        pc = GetComponent<PlayerController>();
-        coll = GetComponent<Collisions>();
-        rb = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
+    }
+    private void Update()
+    {
+        isChangingDirection = (player.CurrentVelocity.x > 0f && player.InputHandler.MovementInput.x < 0f) || (player.CurrentVelocity.x < 0f && player.InputHandler.MovementInput.x > 0f);
     }
     private void FixedUpdate()
     {
-        if (coll.onGround && !ps.isDroppingFromOnewayPlatform && rb.velocity.y <= 0)
+        if (player.Collisions.onGround && player.CurrentVelocity.y <= 0 && !player.isDroppingFromPlatform)
         {
             ApplyGroundDrag();
         }
@@ -85,17 +80,17 @@ public class DragManager : MonoBehaviour
 
     public void ApplyGroundDrag()
     {
-        if (Mathf.Abs(pc.horizontalDirection) < 0.4f || ps.isChangingDirection)
+        if (Mathf.Abs(player.InputHandler.MovementInput.x) < 0.4f || isChangingDirection)
         {
-            rb.drag = groundLinearDrag;
+            player.RB.drag = player.playerData.groundLinearDrag;
         }
         else
         {
-            rb.drag = 0f;
+            player.RB.drag = 0f;
         }
     }
     public void ApplyAirDrag()
     {
-        rb.drag = airLinearDrag;
+        player.RB.drag = player.playerData.airLinearDrag;
     }
 }

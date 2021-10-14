@@ -20,20 +20,10 @@ using UnityEngine;
 
 public class GravityManager : MonoBehaviour
 {
-    private PlayerState ps;
-    private Rigidbody2D rb;
-    private Collisions coll;
-
-    [Header("Gravity Scales Variables")]
-    [SerializeField] private float defaultMultiplier = 3f;
-    [SerializeField] private float fallMultiplier = 7f;
-    [SerializeField] private float lowFallMultiplier = 5f;
-
-    private void Awake()
+    private Player player;
+    private void Start()
     {
-        ps = GetComponent<PlayerState>();
-        rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collisions>();
+        player = GetComponent<Player>();
     }
     private void FixedUpdate()
     {
@@ -42,23 +32,23 @@ public class GravityManager : MonoBehaviour
 
     private void SetGravityScale()
     {
-        if (ps.isDroppingFromOnewayPlatform)
+        if (player.isDroppingFromPlatform)
         {
-            rb.gravityScale = lowFallMultiplier;
+            player.RB.gravityScale = player.playerData.lowFallMultiplier;
         }
         else
         {
-            if (rb.velocity.y < 0 && !coll.onGround)
+            if (player.CurrentVelocity.y < 0f && !player.Collisions.onGround)
             {
-                rb.gravityScale = fallMultiplier;
+                player.RB.gravityScale = player.playerData.fallMultiplier;
             }
-            else if (rb.velocity.y > 0 && (!Input.GetButton("Jump") || ps.wallJumped || ps.extraJumped) && !coll.onGround)
+            else if (player.CurrentVelocity.y > 0f && (!player.InputHandler.JumpHoldInput || player.wallJumped || player.extraJumped) && !player.Collisions.onGround)
             {
-                rb.gravityScale = lowFallMultiplier;
+                player.RB.gravityScale = player.playerData.lowFallMultiplier;
             }
-            else 
+            else
             {
-                rb.gravityScale = defaultMultiplier;
+                player.RB.gravityScale = player.playerData.defaultMultiplier;
             }
         }
     }
