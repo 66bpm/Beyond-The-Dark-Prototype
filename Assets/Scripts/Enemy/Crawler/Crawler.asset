@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78c9f380e9dd464093a527984df4d4d, type: 3}
+  m_Name: Crawler
+  m_EditorClassIdentifier: 
+  maxHp: 3
+  attack: 1
+  attackDelay: 0.5
+  attackCooldown: 1
+  movementAcceleration: 50
+  maxMovementSpeed: 10
+  patrolSpeed: 8
+  groundLinearDrag: 20
+  airLinearDrag: 2.5
+  defaultMultiplier: 3
+  fallMultiplier: 10
+  jumpForce: 20
+  visionConeAngle: 60
+  visionConeTiltRange: 30
+  undetectionedLightExposureThreshold: 0.4
+  noLightExposureThreshold: 0.3
+  lowLightExposureThreshold: 0.45
+  highLightExposureThreshold: 0.6
+  noLightDetectionRange: 2
+  lowLightDetectionRange: 5
+  highLightDetectionRange: 8
+  lowLightCountTime: 3
+  highLightCountTime: 0
+  lowVolumeSoundDetectionRange: 0
+  midVolumeSoundDetectionRange: 0
+  highVolumeSoundDetectionRange: 0
