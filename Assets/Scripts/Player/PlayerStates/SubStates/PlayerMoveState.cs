@@ -8,21 +8,6 @@ public class PlayerMoveState : PlayerGrounded
     {
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void NormalUpdate()
     {
         base.NormalUpdate();

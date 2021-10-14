@@ -9,11 +9,6 @@ public class PlayerAired : PlayerState
     {
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
     public override void Enter()
     {
         base.Enter();

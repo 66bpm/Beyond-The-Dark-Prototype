@@ -8,30 +8,10 @@ public class PlayerWallJumpState : PlayerJump
     {
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
     public override void Enter()
     {
         base.Enter();
         player.DoWallJump();
         isJumpDone = true;
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void NormalUpdate()
-    {
-        base.NormalUpdate();
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

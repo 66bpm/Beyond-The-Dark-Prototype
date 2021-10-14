@@ -8,22 +8,12 @@ public class PlayerGrounded : PlayerState
     {
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
     public override void Enter()
     {
         base.Enter();
         player.JumpState.ResetAmountOfExtraJump();
         player.extraJumped = false;
         player.wallJumped = false;
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void NormalUpdate()

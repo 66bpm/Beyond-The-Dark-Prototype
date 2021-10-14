@@ -10,11 +10,6 @@ public class PlayerJumpState : PlayerJump
         extraJumpCount = playerData.extreJumpAmount;
     }
 
-    public override void DoCheck()
-    {
-        base.DoCheck();
-    }
-
     public override void Enter()
     {
         base.Enter();
@@ -23,20 +18,6 @@ public class PlayerJumpState : PlayerJump
         isJumpDone = true;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void NormalUpdate()
-    {
-        base.NormalUpdate();
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
-    }
     public bool CanExtraJump()
     {
         if (extraJumpCount > 0) return true;
