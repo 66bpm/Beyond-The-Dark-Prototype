@@ -25,7 +25,9 @@ public class PlayerAired : PlayerState
     {
         base.NormalUpdate();
         if (player.transform.position.y > highestPoint) highestPoint = player.transform.position.y;
-        else if (player.Collisions.onGround && player.CurrentVelocity.y <= 0 && !player.isDroppingFromPlatform)
+
+        
+        if (player.Collisions.onGround && player.CurrentVelocity.y <= 0 && !player.isDroppingFromPlatform)
         {
             if ((highestPoint - player.transform.position.y > playerData.heightToForceLandAnimation) || input.x == 0)
             {
@@ -47,39 +49,39 @@ public class PlayerAired : PlayerState
                 else stateMachine.ChangeState(player.LandState);
             }
         }
-        else if (input.y > 0 && moveAgainstTheWall && player.InputHandler.CanMove)
+        else if (player.InputHandler.CanControl)
         {
             CheckLedge(input.x);
-            if (climbLedge)
+            if (climbLedge && input.y > 0)
             {
                 stateMachine.ChangeState(player.LedgeClimbState);
             }
-            else if (player.Collisions.onWallClimbCheck && !climbLedge && player.InputHandler.CanControl)
+            else if (player.Collisions.onWallClimbCheck && !climbLedge && input.y > 0 && moveAgainstTheWall)
             {
                 stateMachine.ChangeState(player.WallClimbState);
             }
+            else if (moveAgainstTheWall && input.y == 0 && player.InputHandler.CanMove )
+            {
+                stateMachine.ChangeState(player.WallSlideState);
+            }
+            else if (jumpInput)
+            {
+                if (player.Collisions.onWall)
+                {
+                    player.InputHandler.UseJumpInput();
+                    stateMachine.ChangeState(player.WallJumpState);
+                }
+                else if (!player.Collisions.onWall && player.JumpState.CanExtraJump())
+                {
+                    player.JumpState.DecreaseAmountOfExtraJump();
+                    player.wallJumped = false;
+                    player.extraJumped = true;
+                    stateMachine.ChangeState(player.JumpState);
+                }
 
-        }
-        else if (moveAgainstTheWall && input.y == 0 && player.InputHandler.CanMove && player.InputHandler.CanControl)
-        {
-            stateMachine.ChangeState(player.WallSlideState);
-        }
-        else if (jumpInput && player.InputHandler.CanControl)
-        {
-            if (player.Collisions.onWall)
-            {
-                player.InputHandler.UseJumpInput();
-                stateMachine.ChangeState(player.WallJumpState);
             }
-            else if (!player.Collisions.onWall && player.JumpState.CanExtraJump())
-            {
-                player.JumpState.DecreaseAmountOfExtraJump();
-                player.wallJumped = false;
-                player.extraJumped = true;
-                stateMachine.ChangeState(player.JumpState);
-            }
-            
         }
+        
 
         player.animator.SetFloat("yVelocity", player.CurrentVelocity.y);
         player.animator.SetFloat("yVelocity", Mathf.Abs(player.CurrentVelocity.x));

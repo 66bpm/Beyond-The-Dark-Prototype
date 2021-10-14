@@ -11,10 +11,19 @@ public class PlayerWallSlideState : PlayerWalled
     public override void NormalUpdate()
     {
         base.NormalUpdate();
-        if (player.Collisions.onWallClimbCheck && moveAgainstTheWall && player.InputHandler.CanMove)
+        if (player.InputHandler.CanControl)
         {
-            stateMachine.ChangeState(player.WallClimbState);
+            CheckLedge(input.x);
+            if (climbLedge && input.y > 0f)
+            {
+                stateMachine.ChangeState(player.LedgeClimbState);
+            }
+            else if (player.Collisions.onWallClimbCheck && moveAgainstTheWall && input.y > 0f)
+            {
+                stateMachine.ChangeState(player.WallClimbState);
+            }
         }
+        
     }
 
     public override void PhysicsUpdate()

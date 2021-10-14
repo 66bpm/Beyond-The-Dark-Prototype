@@ -26,7 +26,7 @@ public class PlayerJump : PlayerState
             {
                 stateMachine.ChangeState(player.IdleState);
             }
-            else if (isAnimationFinished)
+            else
             {
                 stateMachine.ChangeState(player.AiredState);
             }

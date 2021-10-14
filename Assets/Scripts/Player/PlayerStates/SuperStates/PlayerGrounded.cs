@@ -19,33 +19,34 @@ public class PlayerGrounded : PlayerState
     public override void NormalUpdate()
     {
         base.NormalUpdate();
+
         
+
         if (!player.Collisions.onGround && !moveAgainstTheWall)
         {
             stateMachine.ChangeState(player.AiredState);
         }
-        else if (moveAgainstTheWall && input.y > 0 && player.InputHandler.CanControl)
+        else if (player.InputHandler.CanControl)
         {
             CheckLedge(input.x);
-            if (climbLedge)
+            if (climbLedge && input.y > 0)
             {
                 stateMachine.ChangeState(player.LedgeClimbState);
             }
-            else if (player.Collisions.onWallClimbCheck)
+            else if (moveAgainstTheWall && input.y > 0 && player.InputHandler.CanControl && player.Collisions.onWallClimbCheck)
             {
                 stateMachine.ChangeState(player.WallClimbState);
             }
-        }
-        
-        if (jumpInput && player.InputHandler.CanControl)
-        {
-            player.InputHandler.UseJumpInput();
-            if (player.isDroppingFromPlatform)
+            else if (jumpInput && player.InputHandler.CanControl)
             {
-                player.JumpState.DecreaseAmountOfExtraJump();
-                player.extraJumped = true;
+                player.InputHandler.UseJumpInput();
+                if (player.isDroppingFromPlatform)
+                {
+                    player.JumpState.DecreaseAmountOfExtraJump();
+                    player.extraJumped = true;
+                }
+                stateMachine.ChangeState(player.JumpState);
             }
-            stateMachine.ChangeState(player.JumpState);
         }
     }
 

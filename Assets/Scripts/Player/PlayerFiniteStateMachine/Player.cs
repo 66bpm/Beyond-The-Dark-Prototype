@@ -182,12 +182,12 @@ public class Player : MonoBehaviour
 
         if (ledgeDirection > 0f)
         {
-            transform.position = new Vector3(platformPosition.x - w / 2 - playerData.characterDimension.x / 2 - 0.02f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.02f, 0f);
+            transform.position = new Vector3(platformPosition.x - w / 2 - playerData.characterDimension.x / 2 - 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(playerData.characterDimension.x, playerData.characterDimension.y, 0f);
         }
         else if (ledgeDirection < 0f)
         {
-            transform.position = new Vector3(platformPosition.x + w / 2 + playerData.characterDimension.x / 2 + 0.02f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.02f, 0f);
+            transform.position = new Vector3(platformPosition.x + w / 2 + playerData.characterDimension.x / 2 + 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(-playerData.characterDimension.x, playerData.characterDimension.y, 0f);
         }
     }

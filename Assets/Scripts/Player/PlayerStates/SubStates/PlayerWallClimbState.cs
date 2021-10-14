@@ -14,16 +14,16 @@ public class PlayerWallClimbState : PlayerWalled
         
         if (player.InputHandler.CanControl)
         {
-            if (moveAgainstTheWall)
+            CheckLedge(input.x);
+            if (climbLedge && input.y > 0f)
+            {
+                stateMachine.ChangeState(player.LedgeClimbState);
+            }
+            else if (moveAgainstTheWall)
             {
                 if (input.y > 0f)
                 {
-                    CheckLedge(input.x);
-                    if (climbLedge)
-                    {
-                        stateMachine.ChangeState(player.LedgeClimbState);
-                    }
-                    else if (player.Collisions.onWallClimbCheck && !climbLedge && player.Collisions.hitCeiling)
+                    if (player.Collisions.onWallClimbCheck && !climbLedge && player.Collisions.hitCeiling)
                     {
                         stateMachine.ChangeState(player.WallHangState);
                     }
