@@ -11,19 +11,15 @@ public class PlayerWalled : PlayerState
     public override void NormalUpdate()
     {
         base.NormalUpdate();
-        
-        if (!moveAgainstTheWall)
+        if (player.Collisions.onGround)
         {
-            if (player.Collisions.onGround)
-            {
-                stateMachine.ChangeState(player.IdleState);
-            }
-            else if (!player.Collisions.onGround && !jumpInput)
-            {
-                stateMachine.ChangeState(player.AiredState);
-            }
+            stateMachine.ChangeState(player.IdleState);
         }
-        if (!player.Collisions.onGround && jumpInput && player.Collisions.onWall)
+        else if (!moveAgainstTheWall && !player.Collisions.onGround && !jumpInput)
+        {
+            stateMachine.ChangeState(player.AiredState);
+        }
+        else if (!player.Collisions.onGround && jumpInput && player.Collisions.onWall)
         {
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.WallJumpState);

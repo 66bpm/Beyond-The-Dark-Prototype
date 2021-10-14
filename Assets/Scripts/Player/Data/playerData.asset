@@ -24,7 +24,7 @@ MonoBehaviour:
   jumpForce: 30
   hangTime: 0.1
   extreJumpAmount: 1
-  wallJumpMovementLockDuration: 0.2
+  wallJumpMovementLockDuration: 0.5
   wallSlideModifier: 0.25
   wallClimbModifier: 0.9
   wallCorrectionDistance: 0.05

@@ -33,11 +33,7 @@ public class PlayerGrounded : PlayerState
             {
                 stateMachine.ChangeState(player.LedgeClimbState);
             }
-            else if (moveAgainstTheWall && input.y > 0 && player.InputHandler.CanControl && player.Collisions.onWallClimbCheck)
-            {
-                stateMachine.ChangeState(player.WallClimbState);
-            }
-            else if (jumpInput && player.InputHandler.CanControl)
+            else if (jumpInput)
             {
                 player.InputHandler.UseJumpInput();
                 if (player.isDroppingFromPlatform)
@@ -46,6 +42,10 @@ public class PlayerGrounded : PlayerState
                     player.extraJumped = true;
                 }
                 stateMachine.ChangeState(player.JumpState);
+            }
+            else if (moveAgainstTheWall && input.y > 0 && player.InputHandler.CanControl && player.Collisions.onWallClimbCheck)
+            {
+                stateMachine.ChangeState(player.WallClimbState);
             }
         }
     }

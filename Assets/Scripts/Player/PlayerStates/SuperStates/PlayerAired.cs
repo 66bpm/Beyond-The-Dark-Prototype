@@ -56,29 +56,32 @@ public class PlayerAired : PlayerState
             {
                 stateMachine.ChangeState(player.LedgeClimbState);
             }
-            else if (player.Collisions.onWallClimbCheck && !climbLedge && input.y > 0 && moveAgainstTheWall)
+            if (player.InputHandler.CanMove)
             {
-                stateMachine.ChangeState(player.WallClimbState);
-            }
-            else if (moveAgainstTheWall && input.y == 0 && player.InputHandler.CanMove )
-            {
-                stateMachine.ChangeState(player.WallSlideState);
-            }
-            else if (jumpInput)
-            {
-                if (player.Collisions.onWall)
+                if (player.Collisions.onWallClimbCheck && !climbLedge && input.y > 0 && moveAgainstTheWall)
                 {
-                    player.InputHandler.UseJumpInput();
-                    stateMachine.ChangeState(player.WallJumpState);
+                    stateMachine.ChangeState(player.WallClimbState);
                 }
-                else if (!player.Collisions.onWall && player.JumpState.CanExtraJump())
+                else if (moveAgainstTheWall && input.y == 0 && player.InputHandler.CanMove)
                 {
-                    player.JumpState.DecreaseAmountOfExtraJump();
-                    player.wallJumped = false;
-                    player.extraJumped = true;
-                    stateMachine.ChangeState(player.JumpState);
+                    stateMachine.ChangeState(player.WallSlideState);
                 }
+                else if (jumpInput)
+                {
+                    if (player.Collisions.onWall)
+                    {
+                        player.InputHandler.UseJumpInput();
+                        stateMachine.ChangeState(player.WallJumpState);
+                    }
+                    else if (!player.Collisions.onWall && player.JumpState.CanExtraJump())
+                    {
+                        player.JumpState.DecreaseAmountOfExtraJump();
+                        player.wallJumped = false;
+                        player.extraJumped = true;
+                        stateMachine.ChangeState(player.JumpState);
+                    }
 
+                }
             }
         }
         
