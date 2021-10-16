@@ -59,6 +59,12 @@ TagManager:
   - name: Player
     uniqueID: 1137539039
     locked: 0
+  - name: PlayerLightScan
+    uniqueID: 3374413845
+    locked: 0
   - name: Foreground 2
     uniqueID: 1159027855
+    locked: 0
+  - name: Effect
+    uniqueID: 3618458025
     locked: 0

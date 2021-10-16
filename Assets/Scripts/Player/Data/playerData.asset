@@ -52,3 +52,26 @@ MonoBehaviour:
   wallLedgeRaycastYOffset: 0.5
   wallLedgeRaycastSize: {x: 0.2, y: 0.6}
   ledgeRaycastLength: 0.7
+  highVolumeSoundRadius: 5
+  highVolumeSoundAnimationDecayTime: 1
+  midVolumeSoundRadius: 2
+  midVolumeSoundAnimationDecayTime: 0.75
+  lowVolumeSoundRadius: 1
+  lowVolumeSoundAnimationDecayTime: 0.5
+  runSoundFrequency: 0
+  runSoundVolume: 2
+  sneakSoundFrequency: 0
+  sneakSoundVolume: 1
+  landSoundVolume: 2
+  hardLandSoundVolume: 3
+  jumpSoundVolume: 2
+  wallJumpSoundVolume: 2
+  headHitSoundVolume: 2
+  wallClimbSoundFrequency: 0
+  wallClimbSoundVolume: 1
+  wallSlideSoundFrequency: 0
+  wallSlideSoundVolume: 2
+  ledgeClimbSoundVolume: 1
+  rockSoundVolume: 2
+  attackSoundVolume: 3
+  parrySoundVolume: 3

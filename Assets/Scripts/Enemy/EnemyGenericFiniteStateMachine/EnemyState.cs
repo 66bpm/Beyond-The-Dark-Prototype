@@ -23,14 +23,14 @@ public class EnemyState
     public virtual void Enter()
     {
         DoCheck();
-        enemy.animator.SetBool(animBoolName, true);
+        // enemy.animator.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = true; // When animation sprites are done set this to false;
     }
 
     public virtual void Exit()
     {
-        enemy.animator.SetBool(animBoolName, false);
+        // enemy.animator.SetBool(animBoolName, false);
     }
 
     public virtual void NormalUpdate()

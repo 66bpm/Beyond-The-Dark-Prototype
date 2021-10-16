@@ -81,4 +81,41 @@ public class PlayerData : ScriptableObject
     [SerializeField] public float wallLedgeRaycastYOffset;
     [SerializeField] public Vector2 wallLedgeRaycastSize;
     [SerializeField] public float ledgeRaycastLength;
+
+    // Sound Stuff
+    [Header("Sound")]
+    [SerializeField] public float highVolumeSoundRadius;
+    [SerializeField] public float highVolumeSoundAnimationDecayTime;
+
+    [SerializeField] public float midVolumeSoundRadius;
+    [SerializeField] public float midVolumeSoundAnimationDecayTime;
+
+    [SerializeField] public float lowVolumeSoundRadius;
+    [SerializeField] public float lowVolumeSoundAnimationDecayTime;
+
+    [SerializeField] public float runSoundFrequency;
+    [Range(1, 3)] [SerializeField] public int runSoundVolume = 1;
+
+    [SerializeField] public float sneakSoundFrequency;
+    [Range(1, 3)] [SerializeField] public int sneakSoundVolume = 1;
+
+    [Range(1, 3)] [SerializeField] public int landSoundVolume = 1;
+    [Range(1, 3)] [SerializeField] public int hardLandSoundVolume = 1;
+
+    [Range(1, 3)] [SerializeField] public int jumpSoundVolume = 1;
+    [Range(1, 3)] [SerializeField] public int wallJumpSoundVolume = 1;
+
+    [Range(1, 3)] [SerializeField] public int headHitSoundVolume = 1;
+
+    [SerializeField] public float wallClimbSoundFrequency;
+    [Range(1, 3)] [SerializeField] public int wallClimbSoundVolume = 1;
+
+    [SerializeField] public float wallSlideSoundFrequency;
+    [Range(1, 3)] [SerializeField] public int wallSlideSoundVolume = 1;
+
+    [Range(1, 3)] [SerializeField] public int ledgeClimbSoundVolume = 1;
+
+    [Range(1, 3)] [SerializeField] public int rockSoundVolume = 1;
+    [Range(1, 3)] [SerializeField] public int attackSoundVolume = 1;
+    [Range(1, 3)] [SerializeField] public int parrySoundVolume = 1;
 }
