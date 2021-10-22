@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateMachine
+public class CrawlerStateMachine
 {
-    public EnemyState CurrentState { get; private set; }
+    public CrawlerState CurrentState { get; private set; }
 
-    public void Initialize(EnemyState startingState)
+    public void Initialize(CrawlerState startingState)
     {
         CurrentState = startingState;
         CurrentState.Enter();
     }
 
-    public void ChangeState(EnemyState newState)
+    public void ChangeState(CrawlerState newState)
     {
         CurrentState.Exit();
         CurrentState = newState;

@@ -11,7 +11,7 @@ public class PlayerWallClimbState : PlayerWalled
     public override void NormalUpdate()
     {
         base.NormalUpdate();
-        
+        FlipCheck();
         if (player.InputHandler.CanControl)
         {
             CheckLedge(input.x);

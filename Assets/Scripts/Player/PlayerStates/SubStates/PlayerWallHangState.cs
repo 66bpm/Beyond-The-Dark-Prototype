@@ -7,9 +7,12 @@ public class PlayerWallHangState : PlayerWalled
     public PlayerWallHangState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
+
+
     public override void NormalUpdate()
     {
         base.NormalUpdate();
+        FlipCheck();
         if (moveAgainstTheWall && input.y == 0f && player.InputHandler.CanControl)
         {
             stateMachine.ChangeState(player.WallSlideState);

@@ -11,6 +11,7 @@ public class PlayerWallSlideState : PlayerWalled
     public override void NormalUpdate()
     {
         base.NormalUpdate();
+        WallSlideFlipCheck();
         if (player.InputHandler.CanControl)
         {
             CheckLedge(input.x);
@@ -30,5 +31,13 @@ public class PlayerWallSlideState : PlayerWalled
     {
         base.PhysicsUpdate();
         player.DoWallSlide();
+    }
+
+    private void WallSlideFlipCheck()
+    {
+        if (player.InputHandler.CanControl && player.InputHandler.CanMove && (player.isFlipped && input.x < 0f || !player.isFlipped && input.x > 0f))
+        {
+            player.Flip();
+        }
     }
 }

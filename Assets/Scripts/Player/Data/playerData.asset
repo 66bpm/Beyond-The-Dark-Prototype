@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8868675df9dc641872a2a4191b2c7b, type: 3}
   m_Name: playerData
   m_EditorClassIdentifier: 
+  maxHp: 10
+  attack: 1
   movementAcceleration: 70
   maxMovementSpeed: 12
   sneakMaxMovementSpeed: 4
@@ -20,7 +22,7 @@ MonoBehaviour:
   defaultMultiplier: 3
   fallMultiplier: 10
   lowFallMultiplier: 7
-  heightToForceLandAnimation: 10
+  heightToForceLandAnimation: 15
   jumpForce: 30
   hangTime: 0.1
   extreJumpAmount: 1
@@ -29,6 +31,8 @@ MonoBehaviour:
   wallClimbModifier: 0.9
   wallCorrectionDistance: 0.05
   oneWayPlatformResetTime: 0.5
+  visionOffset: {x: 1.5, y: 0.5}
+  visionFlipSpeed: 10
   platformLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -53,11 +57,11 @@ MonoBehaviour:
   wallLedgeRaycastSize: {x: 0.2, y: 0.6}
   ledgeRaycastLength: 0.7
   highVolumeSoundRadius: 5
-  highVolumeSoundAnimationDecayTime: 1
-  midVolumeSoundRadius: 2
-  midVolumeSoundAnimationDecayTime: 0.75
-  lowVolumeSoundRadius: 1
-  lowVolumeSoundAnimationDecayTime: 0.5
+  highVolumeSoundAnimationDecayTime: 2
+  midVolumeSoundRadius: 3
+  midVolumeSoundAnimationDecayTime: 1.5
+  lowVolumeSoundRadius: 1.5
+  lowVolumeSoundAnimationDecayTime: 1
   runSoundFrequency: 0
   runSoundVolume: 2
   sneakSoundFrequency: 0

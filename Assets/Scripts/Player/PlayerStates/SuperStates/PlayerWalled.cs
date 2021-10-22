@@ -25,4 +25,6 @@ public class PlayerWalled : PlayerState
             stateMachine.ChangeState(player.WallJumpState);
         }
     }
+
+    
 }

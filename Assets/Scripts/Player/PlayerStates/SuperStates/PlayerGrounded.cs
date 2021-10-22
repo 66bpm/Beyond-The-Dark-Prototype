@@ -20,7 +20,7 @@ public class PlayerGrounded : PlayerState
     {
         base.NormalUpdate();
 
-        
+        VelocityFlipCheck();
 
         if (!player.Collisions.onGround && !moveAgainstTheWall)
         {

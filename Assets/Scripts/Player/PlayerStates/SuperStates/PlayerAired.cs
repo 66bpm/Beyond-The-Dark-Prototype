@@ -24,29 +24,39 @@ public class PlayerAired : PlayerState
     public override void NormalUpdate()
     {
         base.NormalUpdate();
+
+        VelocityFlipCheck();
+
         if (player.transform.position.y > highestPoint) highestPoint = player.transform.position.y;
 
         
         if (player.Collisions.onGround && player.CurrentVelocity.y <= 0 && !player.isDroppingFromPlatform)
         {
-            if ((highestPoint - player.transform.position.y > playerData.heightToForceLandAnimation) || input.x == 0)
+            if (highestPoint - player.transform.position.y > playerData.heightToForceLandAnimation)
             {
+                player.ActionSoundManager.SpawnActionSound(playerData.highVolumeSoundRadius, playerData.highVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
                 stateMachine.ChangeState(player.LandState);
             }
             else
             {
-                if (player.InputHandler.CanControl)
+                if (input.x != 0f && player.InputHandler.CanControl)
                 {
-                    if (input.x != 0f && !sneak && !moveAgainstTheWall)
+                    if (!sneak && !moveAgainstTheWall)
                     {
+                        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
                         stateMachine.ChangeState(player.MoveState);
                     }
-                    else if (input.x != 0f && sneak && !moveAgainstTheWall)
+                    else if (sneak && !moveAgainstTheWall)
                     {
+                        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
                         stateMachine.ChangeState(player.SneakState);
                     }
                 }
-                else stateMachine.ChangeState(player.LandState);
+                else
+                {
+                    player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+                    stateMachine.ChangeState(player.LandState);
+                }
             }
         }
         else if (player.InputHandler.CanControl)

@@ -4,6 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="newPlayerData", menuName ="Data/PlayerData/BaseData")]
 public class PlayerData : ScriptableObject
 {
+    [Header("Combat Variables")]
+    [SerializeField] public int maxHp = 10;
+    [SerializeField] public int attack = 1;
+
     [Header("Movement Variables")]
     [SerializeField] public float movementAcceleration = 70f;
     [SerializeField] public float maxMovementSpeed = 12f;
@@ -41,6 +45,10 @@ public class PlayerData : ScriptableObject
 
     [Header("One-way Platform Variables")]
     [SerializeField] public float oneWayPlatformResetTime = 0.5f;
+
+    [Header("Vision Variables")]
+    [SerializeField] public Vector2 visionOffset;
+    [SerializeField] public float visionFlipSpeed;
 
     [Header("Collision Detection Variables")]
     [Space]

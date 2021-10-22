@@ -154,4 +154,19 @@ public class PlayerState
             }
         }
     }
+    protected void FlipCheck()
+    {
+        if (player.InputHandler.CanControl && player.InputHandler.CanMove && (!player.isFlipped && input.x < 0f || player.isFlipped && input.x > 0f))
+        {
+            player.Flip();
+        }
+    }
+
+    protected void VelocityFlipCheck()
+    {
+        if (player.InputHandler.CanControl && player.InputHandler.CanMove && (!player.isFlipped && player.CurrentVelocity.x < 0f || player.isFlipped && player.CurrentVelocity.x > 0f))
+        {
+            player.Flip();
+        }
+    }
 }

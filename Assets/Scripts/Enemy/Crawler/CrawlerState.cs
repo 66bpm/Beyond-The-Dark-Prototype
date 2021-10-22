@@ -2,35 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyState
+public class CrawlerState
 {
-    protected Enemy enemy;
-    protected EnemyStateMachine stateMachine;
-    protected EnemyData enemyData;
+    protected Crawler crawler;
+    protected CrawlerStateMachine stateMachine;
+    protected NormalEnemyData crawlerData;
     protected float startTime;
 
     private string animBoolName;
     protected bool isAnimationFinished;
 
-    public EnemyState(Enemy enemy, EnemyStateMachine stateMachine, EnemyData enemyData, string animBoolName)
+    public CrawlerState(Crawler crawler, CrawlerStateMachine stateMachine, NormalEnemyData crawlerData, string animBoolName)
     {
-        this.enemy = enemy;
+        this.crawler = crawler;
         this.stateMachine = stateMachine;
-        this.enemyData = enemyData;
+        this.crawlerData = crawlerData;
         this.animBoolName = animBoolName;
     }
 
     public virtual void Enter()
     {
         DoCheck();
-        // enemy.animator.SetBool(animBoolName, true);
+        crawler.animator.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = true; // When animation sprites are done set this to false;
     }
 
     public virtual void Exit()
     {
-        // enemy.animator.SetBool(animBoolName, false);
+        crawler.animator.SetBool(animBoolName, false);
     }
 
     public virtual void NormalUpdate()
@@ -46,6 +46,6 @@ public class EnemyState
     {
     }
 
-    public virtual void AnimationTrigger() {}
+    public virtual void AnimationTrigger() { }
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
 }

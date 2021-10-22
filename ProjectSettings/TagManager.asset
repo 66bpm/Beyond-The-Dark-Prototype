@@ -20,7 +20,7 @@ TagManager:
   - AnimationCollider
   - ModelCollider
   - LightDetection
-  - 
+  - ActionSound
   - 
   - 
   - 
@@ -58,6 +58,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1137539039
+    locked: 0
+  - name: Enemy
+    uniqueID: 1181523993
     locked: 0
   - name: PlayerLightScan
     uniqueID: 3374413845

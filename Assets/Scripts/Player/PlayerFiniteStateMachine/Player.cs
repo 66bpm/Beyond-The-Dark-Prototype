@@ -31,9 +31,14 @@ public class Player : MonoBehaviour
     #region Unity Component
     public PlayerInputHandler InputHandler { get; private set; }
     [SerializeField] public Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Rigidbody2D RB { get; private set; }
     public CollisionDetection Collisions { get; private set; }
     public DragManager DragManager { get; private set; }
+    public PlayerLightController PlayerLightController { get; private set; }
+    public ActionSoundManager ActionSoundManager { get; private set; }
+
+
 
     [SerializeField] public PlayerData playerData;
     #endregion
@@ -48,6 +53,8 @@ public class Player : MonoBehaviour
 
     public GameObject ledgeTarget;
     public float ledgeDirection;
+
+    public bool isFlipped;
 
     public bool isDroppingFromPlatform;
     public bool wallJumped;
@@ -87,7 +94,10 @@ public class Player : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         Collisions = GetComponent<CollisionDetection>();
         DragManager = GetComponent<DragManager>();
+        PlayerLightController = GetComponent<PlayerLightController>();
+        ActionSoundManager = GetComponent<ActionSoundManager>();
 
+        isFlipped = false;
         StateMachine.Initialize(IdleState);
     }
 
@@ -182,11 +192,13 @@ public class Player : MonoBehaviour
 
         if (ledgeDirection > 0f)
         {
+            if (isFlipped) Flip();
             transform.position = new Vector3(platformPosition.x - w / 2 - playerData.characterDimension.x / 2 - 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(playerData.characterDimension.x, playerData.characterDimension.y, 0f);
         }
         else if (ledgeDirection < 0f)
         {
+            if (!isFlipped) Flip();
             transform.position = new Vector3(platformPosition.x + w / 2 + playerData.characterDimension.x / 2 + 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(-playerData.characterDimension.x, playerData.characterDimension.y, 0f);
         }
@@ -197,6 +209,13 @@ public class Player : MonoBehaviour
         transform.position = ledgeNewPosition;
         RB.isKinematic = false;
         InputHandler.CanControl = true;
+    }
+
+    public void Flip()
+    {
+        PlayerLightController.Flip();
+        isFlipped = !isFlipped;
+        spriteRenderer.flipX = isFlipped;
     }
     #endregion
 

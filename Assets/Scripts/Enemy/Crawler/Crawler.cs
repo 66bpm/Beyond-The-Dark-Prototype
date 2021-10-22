@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crawler : Enemy
+public class Crawler : MonoBehaviour
 {
     #region State
-    public EnemyStateMachine StateMachine { get; private set; }
+    public CrawlerStateMachine StateMachine { get; private set; }
     #endregion
 
     #region Unity Component
+    [SerializeField] public Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Rigidbody2D RB { get; private set; }
     #endregion
 
     #region Unity Callback
     private void Awake()
     {
-        StateMachine = new EnemyStateMachine();
+        StateMachine = new CrawlerStateMachine();
     }
 
     private void Start()

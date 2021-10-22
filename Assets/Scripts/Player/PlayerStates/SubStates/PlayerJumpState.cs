@@ -14,6 +14,7 @@ public class PlayerJumpState : PlayerJump
     {
         base.Enter();
         player.wallJumped = false;
+        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
         player.DoJump(Vector2.up);
         isJumpDone = true;
     }
