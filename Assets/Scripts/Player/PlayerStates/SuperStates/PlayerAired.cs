@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAired : PlayerState
 {
     private float highestPoint;
+    private bool isHeadHit;
     public PlayerAired(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -14,6 +15,7 @@ public class PlayerAired : PlayerState
         base.Enter();
         player.wallJumped = false;
         highestPoint = player.transform.position.y;
+        isHeadHit = false;
     }
 
     public override void Exit()
@@ -34,29 +36,12 @@ public class PlayerAired : PlayerState
         {
             if (highestPoint - player.transform.position.y > playerData.heightToForceLandAnimation)
             {
-                player.ActionSoundManager.SpawnActionSound(playerData.highVolumeSoundRadius, playerData.highVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+                player.hardLanded = true;
                 stateMachine.ChangeState(player.LandState);
             }
             else
             {
-                if (input.x != 0f && player.InputHandler.CanControl)
-                {
-                    if (!sneak && !moveAgainstTheWall)
-                    {
-                        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
-                        stateMachine.ChangeState(player.MoveState);
-                    }
-                    else if (sneak && !moveAgainstTheWall)
-                    {
-                        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
-                        stateMachine.ChangeState(player.SneakState);
-                    }
-                }
-                else
-                {
-                    player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
-                    stateMachine.ChangeState(player.LandState);
-                }
+                stateMachine.ChangeState(player.LandState);
             }
         }
         else if (player.InputHandler.CanControl)
@@ -70,10 +55,12 @@ public class PlayerAired : PlayerState
             {
                 if (player.Collisions.onWallClimbCheck && !climbLedge && input.y > 0 && moveAgainstTheWall)
                 {
+                    player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "MidActionSound");
                     stateMachine.ChangeState(player.WallClimbState);
                 }
                 else if (moveAgainstTheWall && input.y == 0 && player.InputHandler.CanMove)
                 {
+                    player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "MidActionSound");
                     stateMachine.ChangeState(player.WallSlideState);
                 }
                 else if (jumpInput)
@@ -94,7 +81,15 @@ public class PlayerAired : PlayerState
                 }
             }
         }
-        
+        if (player.Collisions.hitCeiling && !isHeadHit)
+        {
+            player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.TopSoundPosition);
+            isHeadHit = true;
+        }
+        else
+        {
+            isHeadHit = false;
+        }
 
         player.animator.SetFloat("yVelocity", player.CurrentVelocity.y);
         player.animator.SetFloat("yVelocity", Mathf.Abs(player.CurrentVelocity.x));

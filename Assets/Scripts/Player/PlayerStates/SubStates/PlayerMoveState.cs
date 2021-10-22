@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGrounded
 {
+    private float actionSoundCounter;
     public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        actionSoundCounter = playerData.runSoundPeriod;
+        player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
     }
 
     public override void NormalUpdate()
@@ -24,6 +32,18 @@ public class PlayerMoveState : PlayerGrounded
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (input.x != 0)
+        {
+            if (actionSoundCounter <= 0f)
+            {
+                actionSoundCounter = playerData.runSoundPeriod;
+                player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+            }
+            else
+            {
+                actionSoundCounter -= Time.fixedDeltaTime;
+            }
+        }
         player.DoMove(input.x);
     }
 }

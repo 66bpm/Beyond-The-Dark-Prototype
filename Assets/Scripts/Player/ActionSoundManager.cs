@@ -24,10 +24,10 @@ public class ActionSoundManager : MonoBehaviour
         RightSoundPosition.Set(characterDimension.x/2, 0f, 0f);
     }
 
-    public void SpawnActionSound(float radius, float duration, Vector3 playerPosition, Vector3 localPosition)
+    public void SpawnActionSound(float radius, float duration, Vector3 playerPosition, Vector3 localPosition, string layerName = "LowActionSound")
     {
         ActionSound actionSound = Instantiate(prefab);
-        actionSound.Initialize(radius, playerPosition + localPosition);
+        actionSound.Initialize(radius, playerPosition + localPosition, layerName);
         Destroy(actionSound.gameObject, duration);
     }
 }

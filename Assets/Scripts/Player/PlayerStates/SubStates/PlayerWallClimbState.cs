@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PlayerWallClimbState : PlayerWalled
 {
+    private float actionSoundCounter;
     public PlayerWallClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        actionSoundCounter = playerData.wallClimbSoundPeriod;
     }
 
     public override void NormalUpdate()
@@ -39,6 +46,18 @@ public class PlayerWallClimbState : PlayerWalled
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (moveAgainstTheWall && input.y > 0f)
+        {
+            if (actionSoundCounter <= 0f)
+            {
+                actionSoundCounter = playerData.wallClimbSoundPeriod;
+                player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+            }
+            else
+            {
+                actionSoundCounter -= Time.fixedDeltaTime;
+            }
+        }
         player.DoWallClimb();
     }
 }

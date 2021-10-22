@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class PlayerWallSlideState : PlayerWalled
 {
+    private float actionSoundCounter;
     public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+        actionSoundCounter = playerData.wallSlideSoundPeriod;
     }
 
     public override void NormalUpdate()
@@ -30,6 +38,18 @@ public class PlayerWallSlideState : PlayerWalled
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        if (moveAgainstTheWall)
+        {
+            if (actionSoundCounter <= 0f)
+            {
+                actionSoundCounter = playerData.wallSlideSoundPeriod;
+                player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+            }
+            else
+            {
+                actionSoundCounter -= Time.fixedDeltaTime;
+            }
+        }
         player.DoWallSlide();
     }
 

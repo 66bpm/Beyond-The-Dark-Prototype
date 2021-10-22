@@ -14,7 +14,15 @@ public class PlayerJumpState : PlayerJump
     {
         base.Enter();
         player.wallJumped = false;
-        player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+        if (player.extraJumped)
+        {
+            player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition);
+        }
+        else
+        {
+            player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "MidActionSound");
+        }
+        
         player.DoJump(Vector2.up);
         isJumpDone = true;
     }

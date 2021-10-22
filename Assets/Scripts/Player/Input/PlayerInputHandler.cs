@@ -64,4 +64,11 @@ public class PlayerInputHandler : MonoBehaviour
         yield return new WaitForSeconds(time);
         CanMove = true;
     }
+
+    public IEnumerator DisableControl(float time)
+    {
+        CanControl = false;
+        yield return new WaitForSeconds(time);
+        CanControl = true;
+    }
 }

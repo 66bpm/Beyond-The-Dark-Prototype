@@ -17,12 +17,12 @@ TagManager:
   - Player
   - Platform
   - OnewayPlatform
-  - AnimationCollider
-  - ModelCollider
+  - 
+  - 
   - LightDetection
-  - ActionSound
-  - 
-  - 
+  - LowActionSound
+  - MidActionSound
+  - HighActionSound
   - 
   - 
   - 

@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     public bool isDroppingFromPlatform;
     public bool wallJumped;
     public bool extraJumped;
+    public bool hardLanded;
 
     public float lightExposure;
     #endregion
@@ -195,12 +196,14 @@ public class Player : MonoBehaviour
             if (isFlipped) Flip();
             transform.position = new Vector3(platformPosition.x - w / 2 - playerData.characterDimension.x / 2 - 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(playerData.characterDimension.x, playerData.characterDimension.y, 0f);
+            ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, CurrentPosition, ActionSoundManager.TopSoundPosition + Vector3.right * playerData.characterDimension.y / 2);
         }
         else if (ledgeDirection < 0f)
         {
             if (!isFlipped) Flip();
             transform.position = new Vector3(platformPosition.x + w / 2 + playerData.characterDimension.x / 2 + 0.05f, platformPosition.y + h / 2 - playerData.characterDimension.y / 2 + 0.05f, 0f);
             ledgeNewPosition = CurrentPosition + new Vector3(-playerData.characterDimension.x, playerData.characterDimension.y, 0f);
+            ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, CurrentPosition, ActionSoundManager.TopSoundPosition + Vector3.left * playerData.characterDimension.y / 2);
         }
     }
 
@@ -209,6 +212,7 @@ public class Player : MonoBehaviour
         transform.position = ledgeNewPosition;
         RB.isKinematic = false;
         InputHandler.CanControl = true;
+        ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, CurrentPosition, ActionSoundManager.BottomSoundPosition);
     }
 
     public void Flip()

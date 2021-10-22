@@ -62,18 +62,17 @@ MonoBehaviour:
   midVolumeSoundAnimationDecayTime: 1.5
   lowVolumeSoundRadius: 1.5
   lowVolumeSoundAnimationDecayTime: 1
-  runSoundFrequency: 0
+  runSoundPeriod: 0.25
   runSoundVolume: 2
-  sneakSoundFrequency: 0
   sneakSoundVolume: 1
   landSoundVolume: 2
   hardLandSoundVolume: 3
   jumpSoundVolume: 2
   wallJumpSoundVolume: 2
   headHitSoundVolume: 2
-  wallClimbSoundFrequency: 0
+  wallClimbSoundPeriod: 0.4
   wallClimbSoundVolume: 1
-  wallSlideSoundFrequency: 0
+  wallSlideSoundPeriod: 0.2
   wallSlideSoundVolume: 2
   ledgeClimbSoundVolume: 1
   rockSoundVolume: 2

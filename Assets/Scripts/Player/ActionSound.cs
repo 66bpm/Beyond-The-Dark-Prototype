@@ -9,11 +9,11 @@ public class ActionSound : MonoBehaviour
     private ParticleSystem ps;
     public float startTime;
 
-    public void Initialize(float radius, Vector3 position)
+    public void Initialize(float radius, Vector3 position, string layerName)
     {
         coll = GetComponent<CircleCollider2D>();
         ps = GetComponent<ParticleSystem>();
-        
+        gameObject.layer = LayerMask.NameToLayer(layerName);
         this.radius = radius;
         coll.radius = this.radius;
         transform.position = position;
