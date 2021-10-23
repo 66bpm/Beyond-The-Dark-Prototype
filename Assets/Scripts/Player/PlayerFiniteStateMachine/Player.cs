@@ -38,8 +38,6 @@ public class Player : MonoBehaviour
     public PlayerLightController PlayerLightController { get; private set; }
     public ActionSoundManager ActionSoundManager { get; private set; }
 
-
-
     [SerializeField] public PlayerData playerData;
     #endregion
 
@@ -164,7 +162,9 @@ public class Player : MonoBehaviour
         StartCoroutine(InputHandler.DisableMovement(playerData.wallJumpMovementLockDuration));
         DoJump(Vector2.up + jumpDirection);
     }
+    #endregion
 
+    #region Wall Methods
     public void DoWallClimb()
     {
         dirTemp.Set(InputHandler.MovementInput.normalized.x * 0.1f, InputHandler.MovementInput.y * playerData.maxMovementSpeed * playerData.wallClimbModifier);
@@ -214,17 +214,31 @@ public class Player : MonoBehaviour
         InputHandler.CanControl = true;
         ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, CurrentPosition, ActionSoundManager.BottomSoundPosition);
     }
+    #endregion
 
+    #region Attack Methods
+    public void DoAttack(Vector2 dir)
+    {
+        dirTemp.Set(dir.x * playerData.characterDimension.x / 2, dir.y * playerData.characterDimension.y / 2);
+        float boxAngle;
+        if (dir == Vector2.right || dir == Vector2.left) boxAngle = 0f;
+        else boxAngle = 90f;
+
+        RaycastHit2D hits = Physics2D.BoxCast(CurrentPosition + (Vector3)dirTemp, playerData.attackBox, boxAngle, dir, playerData.enemyLayer);
+    }
+    #endregion
+
+    #region Others
     public void Flip()
     {
         PlayerLightController.Flip();
         isFlipped = !isFlipped;
         spriteRenderer.flipX = isFlipped;
     }
-    #endregion
 
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
+    #endregion
 
     #region Gizmos
     private void OnDrawGizmos()

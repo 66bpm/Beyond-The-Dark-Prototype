@@ -86,7 +86,7 @@ public class PlayerAired : PlayerState
             player.ActionSoundManager.SpawnActionSound(playerData.lowVolumeSoundRadius, playerData.lowVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.TopSoundPosition);
             isHeadHit = true;
         }
-        else
+        else if (!player.Collisions.hitCeiling && isHeadHit)
         {
             isHeadHit = false;
         }

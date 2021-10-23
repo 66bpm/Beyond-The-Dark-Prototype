@@ -7,6 +7,7 @@ public class PlayerData : ScriptableObject
     [Header("Combat Variables")]
     [SerializeField] public int maxHp = 10;
     [SerializeField] public int attack = 1;
+    [SerializeField] public Vector2 attackBox;
 
     [Header("Movement Variables")]
     [SerializeField] public float movementAcceleration = 70f;
@@ -56,6 +57,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] public LayerMask platformLayer;
     [SerializeField] public LayerMask onewayPlatformLayer;
     [SerializeField] public LayerMask allLayers;
+    [SerializeField] public LayerMask enemyLayer;
 
     // Offsets 
     [Space]

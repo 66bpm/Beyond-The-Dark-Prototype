@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 10
   attack: 1
+  attackBox: {x: 0, y: 0}
   movementAcceleration: 70
   maxMovementSpeed: 12
   sneakMaxMovementSpeed: 4
@@ -42,6 +43,9 @@ MonoBehaviour:
   allLayers:
     serializedVersion: 2
     m_Bits: 384
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 65536
   characterDimension: {x: 1, y: 2}
   groundRaycastSize: {x: 0.9, y: 0.6}
   groundRaycastYOffset: 0.8
@@ -63,18 +67,8 @@ MonoBehaviour:
   lowVolumeSoundRadius: 1.5
   lowVolumeSoundAnimationDecayTime: 1
   runSoundPeriod: 0.25
-  runSoundVolume: 2
-  sneakSoundVolume: 1
-  landSoundVolume: 2
-  hardLandSoundVolume: 3
-  jumpSoundVolume: 2
-  wallJumpSoundVolume: 2
-  headHitSoundVolume: 2
   wallClimbSoundPeriod: 0.4
-  wallClimbSoundVolume: 1
   wallSlideSoundPeriod: 0.2
-  wallSlideSoundVolume: 2
-  ledgeClimbSoundVolume: 1
   rockSoundVolume: 2
   attackSoundVolume: 3
   parrySoundVolume: 3
