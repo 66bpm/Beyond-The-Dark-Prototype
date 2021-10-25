@@ -220,11 +220,12 @@ public class Player : MonoBehaviour
     public void DoAttack(Vector2 dir)
     {
         dirTemp.Set(dir.x * playerData.characterDimension.x / 2, dir.y * playerData.characterDimension.y / 2);
-        float boxAngle;
-        if (dir == Vector2.right || dir == Vector2.left) boxAngle = 0f;
-        else boxAngle = 90f;
+        Vector2 attackBox = playerData.attackBox;
+        if (dir == Vector2.up || dir == Vector2.down) attackBox.Set(playerData.attackBox.y, playerData.attackBox.x);
+        RaycastHit2D hits = Physics2D.BoxCast(CurrentPosition + (Vector3)dirTemp, playerData.attackBox, 0f, dir, playerData.enemyLayer);
 
-        RaycastHit2D hits = Physics2D.BoxCast(CurrentPosition + (Vector3)dirTemp, playerData.attackBox, boxAngle, dir, playerData.enemyLayer);
+        // Debug
+        Debug.DrawLine(CurrentPosition + (Vector3)dirTemp, CurrentPosition + (Vector3)dirTemp + new Vector3(dir.x * attackBox.x, dir.y * attackBox.y, 0f), Color.white, 2f);
     }
     #endregion
 
