@@ -16,8 +16,11 @@ public class PlayerState
     protected Vector2 input;
     protected bool jumpInput;
     protected bool sneak;
+    protected bool attackInput;
 
     protected bool climbLedge;
+
+    protected float highestPoint;
 
     private bool lnml;
     private bool rnml;
@@ -42,6 +45,7 @@ public class PlayerState
         player.animator.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = true; // When animation sprites are done set this to false;
+        // Debug.Log(Time.time.ToString() + " " + this.GetType());
     }
 
     public virtual void Exit()
@@ -54,6 +58,7 @@ public class PlayerState
         input = player.InputHandler.MovementInput;
         jumpInput = player.InputHandler.JumpInput;
         sneak = player.InputHandler.SneakInput;
+        attackInput = player.InputHandler.AttackInput;
         moveAgainstTheWall = ((input.x < 0f) && player.Collisions.onLeftWall) || ((input.x > 0f) && player.Collisions.onRightWall);
     }
 
@@ -161,7 +166,6 @@ public class PlayerState
             player.Flip();
         }
     }
-
     protected void VelocityFlipCheck()
     {
         if (player.InputHandler.CanControl && player.InputHandler.CanMove && (!player.isFlipped && player.CurrentVelocity.x < 0f || player.isFlipped && player.CurrentVelocity.x > 0f))

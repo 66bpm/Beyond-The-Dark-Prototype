@@ -14,9 +14,8 @@ public class PlayerLandState : PlayerGrounded
         if (player.hardLanded)
         {
             player.ActionSoundManager.SpawnActionSound(playerData.highVolumeSoundRadius, playerData.highVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "HighActionSound");
-            player.hardLanded = false;
         }
-        else
+        else 
         {
             player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "MidActionSound");
             input = player.InputHandler.MovementInput;
@@ -34,6 +33,12 @@ public class PlayerLandState : PlayerGrounded
                 }
             }
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        player.hardLanded = false;
     }
 
     public override void NormalUpdate()

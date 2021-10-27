@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - OnewayPlatform
   - Stair
+  - Enemy
   layers:
   - Default
   - TransparentFX

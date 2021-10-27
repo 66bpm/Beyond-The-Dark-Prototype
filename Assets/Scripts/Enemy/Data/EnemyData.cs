@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 [CreateAssetMenu(fileName = "newEnemyData", menuName = "Data/EnemyData/BaseData")]
 public class EnemyData : ScriptableObject
 {
@@ -9,6 +11,10 @@ public class EnemyData : ScriptableObject
     [SerializeField] public float attack = 1f;
     [SerializeField] public float attackDelay = 0.5f;
     [SerializeField] public float attackCooldown = 1f;
+
+    [Header("Patrol Data")]
+    [SerializeField] public bool doesPatrol;
+    [SerializeField] public float patrolWaitTime = 0.4f;
 
     [Header("Movement Variables")]
     [SerializeField] public float movementAcceleration = 70f;

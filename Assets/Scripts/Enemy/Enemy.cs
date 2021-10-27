@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool damaged;
+    public Vector2 forceDirection;
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        forceDirection = new Vector2();
     }
 
     public void Damaged (Vector2 direction)
     {
-        Debug.Log("Hit: " + direction.ToString());
+        damaged = true;
+        forceDirection = direction;
+    }
+
+    public void Recovered()
+    {
+        damaged = false;
     }
 }

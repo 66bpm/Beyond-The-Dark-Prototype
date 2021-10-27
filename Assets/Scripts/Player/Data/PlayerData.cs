@@ -8,6 +8,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] public int maxHp = 10;
     [SerializeField] public int attack = 1;
     [SerializeField] public Vector2 attackBox;
+    [SerializeField] public float iFrameTime;
 
     [Header("Movement Variables")]
     [SerializeField] public float movementAcceleration = 70f;

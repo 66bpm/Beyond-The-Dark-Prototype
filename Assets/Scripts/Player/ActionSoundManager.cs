@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActionSoundManager : MonoBehaviour
 {
     [SerializeField] private ActionSound prefab;
-    [SerializeField] private ParticleSystem particleSys;
+    [SerializeField] private ActionSoundGameManager actionSoundGameManager;
     private Player player;
     
     public Vector3 TopSoundPosition { get; private set; }
@@ -27,7 +27,8 @@ public class ActionSoundManager : MonoBehaviour
     public void SpawnActionSound(float radius, float duration, Vector3 playerPosition, Vector3 localPosition, string layerName = "LowActionSound")
     {
         ActionSound actionSound = Instantiate(prefab);
-        actionSound.Initialize(radius, playerPosition + localPosition, layerName);
+        actionSound.Initialize(radius, playerPosition + localPosition, layerName, actionSoundGameManager);
+        actionSoundGameManager.actionSounds.Add(actionSound);
         Destroy(actionSound.gameObject, duration);
     }
 }

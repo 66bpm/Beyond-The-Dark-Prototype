@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
     public PlayerWallHangState WallHangState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
 
+    // Attack
+    public PlayerAttackDownAirState AttackDownAirState { get; private set; }
+    public PlayerAttackDownGroundState AttackDownGroundState { get; private set; }
+    public PlayerAttackFrontState AttackFrontState { get; private set; }
+    public PlayerAttackUpState AttackUpState { get; private set; }
     #endregion
 
     #region Unity Component
@@ -42,8 +47,13 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Gameplay Variable
+    public float CurrecntHP { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
     public Vector3 CurrentPosition => transform.position;
+    public Vector2 AttackDirection { get; set; }
+    
+
+    public float HighestPoint { get; set; }
 
     private Vector2 dirTemp;
 
@@ -51,9 +61,9 @@ public class Player : MonoBehaviour
 
     public GameObject ledgeTarget;
     public float ledgeDirection;
-
+    
     public bool isFlipped;
-
+    public bool isAttacked;
     public bool isDroppingFromPlatform;
     public bool wallJumped;
     public bool extraJumped;
@@ -85,6 +95,12 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         WallHangState = new PlayerWallHangState(this, StateMachine, playerData, "wallHang");
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimb");
+
+        // Attack
+        AttackDownAirState = new PlayerAttackDownAirState(this, StateMachine, playerData, "attackDownAir");
+        AttackDownGroundState = new PlayerAttackDownGroundState(this, StateMachine, playerData, "attackDownGround");
+        AttackFrontState = new PlayerAttackFrontState(this, StateMachine, playerData, "attackFront");
+        AttackUpState = new PlayerAttackUpState(this, StateMachine, playerData, "attackUp");
     }
 
     private void Start()
@@ -97,6 +113,8 @@ public class Player : MonoBehaviour
         ActionSoundManager = GetComponent<ActionSoundManager>();
 
         isFlipped = false;
+        isAttacked = false;
+        CurrecntHP = playerData.maxHp;
         StateMachine.Initialize(IdleState);
     }
 
@@ -104,6 +122,7 @@ public class Player : MonoBehaviour
     {
         CurrentVelocity = RB.velocity;
         StateMachine.CurrentState.NormalUpdate();
+
     }
 
     private void FixedUpdate()
@@ -217,15 +236,38 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Attack Methods
-    public void DoAttack(Vector2 dir)
+    public void DoAttack()
     {
-        dirTemp.Set(dir.x * playerData.characterDimension.x / 2, dir.y * playerData.characterDimension.y / 2);
         Vector2 attackBox = playerData.attackBox;
-        if (dir == Vector2.up || dir == Vector2.down) attackBox.Set(playerData.attackBox.y, playerData.attackBox.x);
-        RaycastHit2D hits = Physics2D.BoxCast(CurrentPosition + (Vector3)dirTemp, playerData.attackBox, 0f, dir, playerData.enemyLayer);
+        if (AttackDirection == Vector2.up || AttackDirection == Vector2.down) attackBox.Set(playerData.attackBox.y, playerData.attackBox.x);
+        dirTemp.Set(CurrentPosition.x + AttackDirection.x * (playerData.characterDimension.x / 2 + attackBox.x/2), CurrentPosition.y + AttackDirection.y * (playerData.characterDimension.y / 2 + attackBox.y/2));
 
+        RaycastHit2D[] enemyHits = Physics2D.BoxCastAll(dirTemp, attackBox, 0f, AttackDirection, 0f, playerData.enemyLayer);
+        RaycastHit2D platformHit = Physics2D.Raycast(dirTemp, AttackDirection, distance:(AttackDirection.x * attackBox.x + AttackDirection.y * attackBox.y), playerData.platformLayer);
+        if (enemyHits != null)
+        {
+            for (int i = 0; i < enemyHits.Length; i++)
+            {
+                if (enemyHits[i].collider != null)
+                {
+                    if (enemyHits[i].collider.gameObject.CompareTag("Enemy"))
+                    {
+                        if (!(Collisions.onGround && AttackDirection == Vector2.down))
+                        {
+                            enemyHits[i].collider.GetComponent<Enemy>().Damaged(AttackDirection);
+                            ActionSoundManager.SpawnActionSound(playerData.highVolumeSoundRadius, playerData.highVolumeSoundAnimationDecayTime, enemyHits[i].point, Vector3.zero, "HighActionSound");
+                        }
+                    }
+
+                }
+            }
+        }
+        if (platformHit)
+        {
+            if (platformHit.collider.gameObject.CompareTag("Platform")) ActionSoundManager.SpawnActionSound(playerData.highVolumeSoundRadius, playerData.highVolumeSoundAnimationDecayTime, platformHit.point, Vector3.zero, "HighActionSound");
+        }
         // Debug
-        Debug.DrawLine(CurrentPosition + (Vector3)dirTemp, CurrentPosition + (Vector3)dirTemp + new Vector3(dir.x * attackBox.x, dir.y * attackBox.y, 0f), Color.white, 2f);
+        Debug.DrawLine((Vector3)dirTemp - new Vector3(AttackDirection.x * attackBox.x / 2, AttackDirection.y * attackBox.y / 2, 0f), (Vector3)dirTemp + new Vector3(AttackDirection.x * attackBox.x / 2, AttackDirection.y * attackBox.y / 2, 0f), Color.white, 2f);
     }
     #endregion
 

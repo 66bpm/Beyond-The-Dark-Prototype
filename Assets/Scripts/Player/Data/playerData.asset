@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 10
   attack: 1
-  attackBox: {x: 0, y: 0}
+  attackBox: {x: 2.4, y: 1.8}
   movementAcceleration: 70
   maxMovementSpeed: 12
   sneakMaxMovementSpeed: 4

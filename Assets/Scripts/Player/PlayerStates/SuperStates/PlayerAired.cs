@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAired : PlayerState
 {
-    private float highestPoint;
+    
     private bool isHeadHit;
     public PlayerAired(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -14,7 +14,7 @@ public class PlayerAired : PlayerState
     {
         base.Enter();
         player.wallJumped = false;
-        highestPoint = player.transform.position.y;
+        player.HighestPoint = player.transform.position.y;
         isHeadHit = false;
     }
 
@@ -29,12 +29,12 @@ public class PlayerAired : PlayerState
 
         VelocityFlipCheck();
 
-        if (player.transform.position.y > highestPoint) highestPoint = player.transform.position.y;
+        if (player.transform.position.y > player.HighestPoint) player.HighestPoint = player.transform.position.y;
 
         
         if (player.Collisions.onGround && player.CurrentVelocity.y <= 0 && !player.isDroppingFromPlatform)
         {
-            if (highestPoint - player.transform.position.y > playerData.heightToForceLandAnimation)
+            if (player.HighestPoint - player.transform.position.y > playerData.heightToForceLandAnimation)
             {
                 player.hardLanded = true;
                 stateMachine.ChangeState(player.LandState);
@@ -63,6 +63,24 @@ public class PlayerAired : PlayerState
                     player.ActionSoundManager.SpawnActionSound(playerData.midVolumeSoundRadius, playerData.midVolumeSoundAnimationDecayTime, player.CurrentPosition, player.ActionSoundManager.BottomSoundPosition, "MidActionSound");
                     stateMachine.ChangeState(player.WallSlideState);
                 }
+                else if (attackInput)
+                {
+                    player.InputHandler.UseAttackInput();
+                    player.AttackDirection = player.InputHandler.GetAttackDirection(!player.isFlipped);
+                    if (player.AttackDirection == Vector2.up)
+                    {
+                        stateMachine.ChangeState(player.AttackUpState);
+                    }
+                    else if (player.AttackDirection == Vector2.down)
+                    {
+                        stateMachine.ChangeState(player.AttackDownAirState);
+                    }
+                    else if (player.AttackDirection == Vector2.left || player.AttackDirection == Vector2.right)
+                    {
+                        if (player.AttackDirection == Vector2.left && !player.isFlipped || player.AttackDirection == Vector2.right && player.isFlipped) player.Flip();
+                        stateMachine.ChangeState(player.AttackFrontState);
+                    }
+                }
                 else if (jumpInput)
                 {
                     if (player.Collisions.onWall)
@@ -77,7 +95,6 @@ public class PlayerAired : PlayerState
                         player.extraJumped = true;
                         stateMachine.ChangeState(player.JumpState);
                     }
-
                 }
             }
         }

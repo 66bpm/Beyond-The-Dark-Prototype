@@ -14,6 +14,7 @@ public class PlayerGrounded : PlayerState
         player.JumpState.ResetAmountOfExtraJump();
         player.extraJumped = false;
         player.wallJumped = false;
+        player.HighestPoint = player.transform.position.y;
     }
 
     public override void NormalUpdate()
@@ -43,7 +44,25 @@ public class PlayerGrounded : PlayerState
                 }
                 stateMachine.ChangeState(player.JumpState);
             }
-            else if (moveAgainstTheWall && input.y > 0 && player.InputHandler.CanControl && player.Collisions.onWallClimbCheck)
+            else if (attackInput)
+            {
+                player.InputHandler.UseAttackInput();
+                player.AttackDirection = player.InputHandler.GetAttackDirection(!player.isFlipped);
+                if (player.AttackDirection == Vector2.up)
+                {
+                    stateMachine.ChangeState(player.AttackUpState);
+                }
+                else if (player.AttackDirection == Vector2.down)
+                {
+                    stateMachine.ChangeState(player.AttackDownGroundState);
+                }
+                else if (player.AttackDirection == Vector2.left || player.AttackDirection == Vector2.right)
+                {
+                    if (player.AttackDirection == Vector2.left && !player.isFlipped || player.AttackDirection == Vector2.right && player.isFlipped) player.Flip();
+                    stateMachine.ChangeState(player.AttackFrontState);
+                }
+            }
+            else if (moveAgainstTheWall && input.y > 0 && player.Collisions.onWallClimbCheck)
             {
                 stateMachine.ChangeState(player.WallClimbState);
             }

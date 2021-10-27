@@ -29,10 +29,14 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private float attackBufferLength = 0.2f;
     private float attackBufferStartTime;
 
+    [SerializeField] private float attackInputCooldown = 0.5f;
+    private float attackCooldownCount;
+
     private void Start()
     {
         CanMove = true;
         CanControl = true;
+        attackCooldownCount = 0f;
         controls = GetComponent<UnityEngine.InputSystem.PlayerInput>();
         controls.onControlsChanged += OnControlsChanged;
     }
@@ -40,7 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         CheckJumpInputBuffer();
-        CheckAttackInputBuffer();
+        CheckAttackInput();
         Debug.DrawRay(transform.position, AimDirectionInput, Color.green);
 
     }
@@ -129,18 +133,26 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.started)
         {
-            AttackInput = true;
-            attackBufferStartTime = Time.time;
+            if (attackCooldownCount <= 0f)
+            {
+                AttackInput = true;
+                attackBufferStartTime = Time.time;
+            }
         }
     }
 
-    public void UseAttackInput() => AttackInput = false;
-    private void CheckAttackInputBuffer()
+    public void UseAttackInput()
+    {
+        AttackInput = false;
+        attackCooldownCount = attackInputCooldown;
+    }
+    private void CheckAttackInput()
     {
         if (Time.time > attackBufferStartTime + attackBufferLength)
         {
             AttackInput = false;
         }
+        if (attackCooldownCount > 0f) attackCooldownCount -= Time.deltaTime;
     }
 
     public Vector2 GetAttackDirection(bool isFacingRight)
@@ -182,4 +194,6 @@ public class PlayerInputHandler : MonoBehaviour
         yield return new WaitForSeconds(time);
         CanControl = true;
     }
+
+
 }
